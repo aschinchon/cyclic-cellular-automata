@@ -11,6 +11,7 @@ sourceCpp('cyclic_funs.cpp')
 # Functions
 #################################################################
 
+# This function creates a w x h matrix of random states
 initial_grid <- function(s, w, h){
   matrix(sample(x = seq_len(s)-1,
                size = w *h,
@@ -18,8 +19,9 @@ initial_grid <- function(s, w, h){
          nrow = h,
          ncol = w)}
 
+# This function implements neighborhoods
+# You can add your own
 convolution_indexes <- function(r, n){
-  # Obtain matrix indexes
   crossing(x = -r:r, y = -r:r) %>% 
     mutate(M = ((x != 0) | (y != 0)) * 1 ,
            N = (abs(x) + abs(y) <= r) * M,
@@ -59,7 +61,6 @@ X <- initial_grid(s = states,
                   w = width,
                   h = height)
 
-  
 L <- convolution_indexes(r = range, n = neighborhood)
   
 for (i in 1:iter){
